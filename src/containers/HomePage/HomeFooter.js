@@ -7,11 +7,31 @@ class HomeFooter extends Component {
 
         return (
             <div className="home-footer">
-                <p>&copy; 2021 Hỏi Dân IT với Eric. More information, please visit my youtube channel.
-                    <a target="_blank" href="https://www.youtube.com/watch?v=VznptsZ9QZU&list=PLncHg6Kn2JT6E38Z3kit9Hnif1xC_9VqI">
-                        &#8594; Click here &#8592;
-                    </a>
-                </p>
+                <div className='content-left col-5 row'>
+                    <div className='footer-content'>
+                        <h1>VỀ CHÚNG TÔI</h1>
+                            <div><a>Giới thiệu</a></div>
+                            <div><a>Sản phẩm</a></div>
+                            <div><a>Đào tạo</a></div>
+                    </div>
+                    <div className='footer-content'>
+                        <h1>VỀ CHÚNG TÔI</h1>                 
+                            <div><a>Giới thiệu</a></div>
+                            <div><a>Sản phẩm</a></div>
+                            <div><a>Đào tạo</a></div>                 
+                    </div>
+                </div>
+                <div className='content-right col-5'>
+                    <div className='footer-content'>
+                    Công ty TNHH Diện Chẩn Việt Số ĐKKD 0108459913 do Sở KHĐT Tp. Hà Nội cấp ngày 05/10/2018 
+                    - 1. Chính sách chung 
+                    - 2. Chính sách bảo mật Diện Chẩn Việt đã thông báo Bộ Công Thương
+                    </div>
+                    <div className='footer-image'>
+                        <img src="https://dungcudienchan.vn/wp-content/uploads/2020/01/dien-chan-bui-quoc-chau-da-thong-bao-bo-cong-thuong.png" title="Diện Chẩn Việt đã thông báo Bộ Công Thương"/>
+                    </div>
+                    
+                </div>
             </div>
         );
     }

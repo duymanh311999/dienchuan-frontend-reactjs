@@ -33,29 +33,41 @@ class OutStandingDoctor extends Component {
     }
     render() {
         let arrDoctors = this.state.arrDoctors;
-        let { language } = this.props;
+        console.log("Hello world!", this.state)
         // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors)
         return (
             <div className="section-share section-outstanding-doctor">
                 <div className="section-container">
                     <div className="section-header">
                         <span className="title-section">
-                            <FormattedMessage id="homepage.outstanding-doctor" />
+                             Máy Massage Spa phụ trợ
                         </span>
                         <button className="btn-section">
-                            <FormattedMessage id="homepage.more-infor" />
+                            Xem thêm
                         </button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
+                                        {/* <div className="section-customize specialty-child">
+                                           < div className="bg-image section-specialty">         
+                                                <div className='shopping'>
+                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                        </div>
+                                            <div/>
+                                            <div className='content-name'>
+                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
+                                                <div className="price-name">2.700.000đ</div>
+                                                <div className="price-name-onsale">1.200.000đ</div>
+                                            </div>
+                                        </div> */}
+                                        
                             {arrDoctors && arrDoctors.length > 0
                                 && arrDoctors.map((item, index) => {
                                     let imageBase64 = '';
                                     if (item.image) {
                                         imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
                                     }
-                                    let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName} `;
-                                    let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
                                     return (
                                         <div className="section-customize" key={index} onClick={() => this.handleViewDetailDoctor(item)}>
                                             <div className="customize-border">
@@ -65,8 +77,8 @@ class OutStandingDoctor extends Component {
                                                     />
                                                 </div>
                                                 <div className="position text-center">
-                                                    <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
-                                                    <div>Cơ Xương Khớp</div>
+                                                    <div>{item.firstName}</div>
+                                                    <div>{item.phonenumber}</div>
                                                 </div>
                                             </div>
                                         </div>

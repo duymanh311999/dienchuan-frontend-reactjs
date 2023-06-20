@@ -155,7 +155,7 @@ class UserRedux extends Component {
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrCheck = ['email', 'password', 'firstName', 'lastName',
+        let arrCheck = ['firstName', 'lastName',
             'phoneNumber', 'address']
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {

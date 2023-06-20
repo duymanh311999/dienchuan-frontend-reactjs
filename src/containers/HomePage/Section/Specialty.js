@@ -46,6 +46,21 @@ class Specialty extends Component {
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
+                                        <div className="section-customize specialty-child">
+                                           < div className="bg-image section-specialty">         
+                                                <div className='shopping'>
+                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                        </div>
+                                            <div/>
+                                            <div className='content-name'>
+                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
+                                                <div className="price-name">2.700.000đ</div>
+                                                <div className="price-name-onsale">1.200.000đ</div>
+                                            </div>
+                                        </div>
+                                        
+                                       
                             {dataSpecialty && dataSpecialty.length > 0 &&
                                 dataSpecialty.map((item, index) => {
                                     return (

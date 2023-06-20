@@ -55,7 +55,6 @@
       .section-body {
           .section-customize {
               .bg-image {
-                  width              : 278px;
                   height             : 150px;
                   background-position: center center;
                   background-repeat  : no-repeat;
@@ -72,9 +71,8 @@
 
                   &.section-outstading-doctor {
                       //   background-image: url('../../assets/outstanding-doctor/anh-dai-dien-bs.jpg');
-                      width        : 120px;
-                      height       : 120px;
-                      border-radius: 50%;
+                      width        : 220px;
+                      height       : 220px;
                   }
 
                   &.section-handbook {
@@ -88,26 +86,30 @@
   }
 
   .section-share {
-      height: 330px;
-
       .section-container {
-          margin        : 0 100px;
+          margin        : 0 20px;
           display       : flex;
           flex-direction: column;
 
           .section-header {
               height       : 60px;
-              margin-bottom: 30px;
-              padding-top  : 30px;
+              margin: 30px 0;
+              padding: 0 20px;
+              background-color: green;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              color: white;
+
 
               .title-section {
-                  font-size  : 22px;
+                  font-size  : 18px;
                   font-weight: 600;
               }
 
               .btn-section {
                   float         : right;
-                  padding       : 10px 15px;
+                  padding       : 8px 15px;
                   border        : none;
                   outline       : none;
                   display       : block;
@@ -115,6 +117,7 @@
                   color         : black;
                   cursor        : pointer;
                   text-transform: uppercase;
+                  font-size  : 13px;
 
                   &:hover {
                       color     : #fff;
@@ -147,21 +150,55 @@
 
   .home-footer {
       text-align : center;
-      padding-top: 8px;
+      height: 200px;
+      width: 100%;
+      background-color: green;
+      display: flex;
+      justify-content: space-between;
+        .content-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            .footer-content{
+                color: white;
+                padding: 0 20px;    
+                    h1{
+                        font-size: 16px;
+                        font-weight: 600;
+                    }
+                    a{
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height: 2rem;
+                    }
+            }
+        }
+        .content-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 200px;
+            .footer-content{
+                color: white;
+                font-size: 14px;
+                font-weight: 500;
+            }
 
-      a {
-          text-decoration: unset;
-      }
+            .footer-image{
+                    width: 150px;
+                    height: 80px;
+                    img{
+                        width: 100%;
+                        height: auto;
+                    }
+            }
+           
+        }
   }
 
   .section-about {
       padding: 0 100px;
-
-      .section-about-header {
-          padding    : 20px 10px;
-          font-size  : 22px;
-          font-weight: 600;
-      }
 
       .section-about-content {
           display: flex;

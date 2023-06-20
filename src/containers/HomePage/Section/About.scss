@@ -1,0 +1,33 @@
+.section-about-header{
+    border-bottom: 1px dashed #ccc;
+    margin: 15px 0;
+    font-size  : 22px;
+    font-weight: 600;
+    padding: 0;
+        span{
+            border-bottom: 3px solid green;
+            padding: 3px;
+        }
+}
+
+.section-about-forms{
+    .col-4{
+        padding: 0;
+        .form-control{
+            margin-bottom: 15px;
+            border-radius: 0;
+            color: #888;
+        }
+    }
+    .btn-sightin{
+        border: none;
+        background-color: rgb(4, 99, 4);
+        border-radius: 0;
+        color: white;
+
+
+        &:hover{
+            background-color: rgb(166, 10, 10);
+        }
+    }
+}
