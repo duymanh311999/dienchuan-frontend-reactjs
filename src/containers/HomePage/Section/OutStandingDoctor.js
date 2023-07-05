@@ -1,29 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick";
 import * as actions from '../../../store/actions';
-import { LANGUAGES } from '../../../utils';
 import { withRouter } from 'react-router';
 
 class OutStandingDoctor extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            arrDoctors: []
+            itemsRedux: [],
+            menuApp: []
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.topDoctorsRedux !== this.props.topDoctorsRedux) {
+        if (prevProps.listItemsCayLan !== this.props.listItemsCayLan) {
             this.setState({
-                arrDoctors: this.props.topDoctorsRedux
+                itemsRedux: this.props.listItemsCayLan
             })
         }
     }
 
     componentDidMount() {
-        this.props.loadTopDoctors();
+        this.props.fetchItemsCayLanRedux();
     }
 
     handleViewDetailDoctor = (doctor) => {
@@ -32,8 +31,8 @@ class OutStandingDoctor extends Component {
         }
     }
     render() {
-        let arrDoctors = this.state.arrDoctors;
-        console.log("Hello world!", this.state)
+        let itemsRedux = this.state.itemsRedux;
+        console.log("Hello world!", this.props.listItemsCayLan)
         // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors)
         return (
             <div className="section-share section-outstanding-doctor">
@@ -62,8 +61,8 @@ class OutStandingDoctor extends Component {
                                             </div>
                                         </div> */}
                                         
-                            {arrDoctors && arrDoctors.length > 0
-                                && arrDoctors.map((item, index) => {
+                            {itemsRedux && itemsRedux.length > 0
+                                && itemsRedux.map((item, index) => {
                                     let imageBase64 = '';
                                     if (item.image) {
                                         imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
@@ -76,9 +75,13 @@ class OutStandingDoctor extends Component {
                                                         style={{ backgroundImage: `url(${imageBase64})` }}
                                                     />
                                                 </div>
-                                                <div className="position text-center">
-                                                    <div>{item.firstName}</div>
-                                                    <div>{item.phonenumber}</div>
+                                                <div className="item-name-price text-center">
+                                                    <div className='name'>{item.name}</div>
+                                                    <div>     
+                                                                                                  
+                                                        <div className={item.priceBeforeSale === '' ? 'priceBeforeSaleNone' : 'priceBeforeSale'}>{item.priceBeforeSale} đ</div>
+                                                        <div className='priceAfterSale'>{item.priceAfterSale} đ</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -98,13 +101,14 @@ const mapStateToProps = state => {
     return {
         language: state.app.language,
         isLoggedIn: state.user.isLoggedIn,
-        topDoctorsRedux: state.admin.topDoctors
+
+        listItemsCayLan: state.admin.itemsCayLan
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadTopDoctors: () => dispatch(actions.fetchTopDoctor())
+        fetchItemsCayLanRedux: () => dispatch(actions.fetchItemsCayLan()),
 
     };
 };

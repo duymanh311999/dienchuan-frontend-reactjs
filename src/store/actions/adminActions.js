@@ -3,7 +3,8 @@ import {
     getAllCodeService, createNewUserService, getAllUsers,
     deteleUserService, editUserService, getTopDoctorHomeService,
     getAllDoctors, saveDetailDoctorService,
-    getAllSpecialty, getAllClinic
+    getAllSpecialty, getAllClinic, createNewItemService, getAllItems,
+    deteleItemService, getAllCodeServiceItems, getItmesHomeService
 } from "../../services/userService";
 import { toast } from "react-toastify";
 // export const fetchGenderStart = () => ({
@@ -26,7 +27,24 @@ export const fetchGenderStart = () => {
             console.log('fetchGenderStart error', e)
         }
     }
+}
+// dien chuan
+export const fetchTypeOfStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({ type: actionTypes.FETCH_TYPEOF_START })
 
+            let res = await getAllCodeServiceItems("TYPEOF");
+            if (res && res.errCode === 0) {
+                dispatch(fetchTypeOfSuccess(res.data))
+            } else {
+                dispatch(fetchTypeOfFailed());
+            }
+        } catch (e) {
+            dispatch(fetchTypeOfFailed());
+            console.log('fetchTypeOfFailed error', e)
+        }
+    }
 }
 
 export const fetchGenderSuccess = (genderData) => ({
@@ -36,6 +54,17 @@ export const fetchGenderSuccess = (genderData) => ({
 
 export const fetchGenderFailed = () => ({
     type: actionTypes.FETCH_GENDER_FAIDED
+})
+
+// dien chuan
+
+export const fetchTypeOfSuccess = (typeofData) => ({
+    type: actionTypes.FETCH_TYPEOF_SUCCESS,
+    data: typeofData
+})
+
+export const fetchTypeOfFailed = () => ({
+    type: actionTypes.FETCH_TYPEOF_FAIDED
 })
 
 export const fetchPositionSuccess = (positionData) => ({
@@ -109,6 +138,25 @@ export const createNewUser = (data) => {
         }
     }
 }
+// dien chuan
+export const createNewItem = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createNewItemService(data);
+            console.log('check item redux:', res)
+            if (res && res.errCode === 0) {
+                toast.success("Create a new item succeed!");
+                dispatch(saveItemSuccess())
+                dispatch(fetchAllItemsStart());
+            } else {
+                dispatch(saveItemFailed());
+            }
+        } catch (e) {
+            dispatch(saveItemFailed());
+            console.log('saveItemFailed error', e)
+        }
+    }
+}
 
 export const saveUserSuccess = () => ({
     type: actionTypes.CREATE_USER_SUCCESS
@@ -116,6 +164,13 @@ export const saveUserSuccess = () => ({
 
 export const saveUserFailed = () => ({
     type: actionTypes.CREATE_USER_FAILDED
+})
+// dien chuan
+export const saveItemSuccess = () => ({
+    type: actionTypes.CREATE_ITEM_SUCCESS
+})
+export const saveItemFailed = () => ({
+    type: actionTypes.CREATE_ITEM_FAILDED
 })
 
 
@@ -137,6 +192,25 @@ export const fetchAllUsersStart = () => {
         }
     }
 }
+// dien chuan
+export const fetchAllItemsStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllItems("ALL");
+            if (res && res.errCode === 0) {
+                dispatch(fetchAlltemsSuccess(res.items.reverse()))
+            } else {
+                toast.error("Fetch all items error!");
+                dispatch(fetchAlltemsFailed());
+            }
+        } catch (e) {
+            toast.error("Fetch all items error!");
+
+            dispatch(fetchAlltemsFailed());
+            console.log('fetchAlltemsFailed error', e)
+        }
+    }
+}
 
 export const fetchAllUsersSuccess = (data) => ({
     type: actionTypes.FETCH_ALL_USERS_SUCCESS,
@@ -145,6 +219,15 @@ export const fetchAllUsersSuccess = (data) => ({
 
 export const fetchAllUsersFailed = () => ({
     type: actionTypes.FETCH_ALL_USERS_FAILDED,
+})
+
+// dien chuan
+export const fetchAlltemsSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_ITEMS_SUCCESS,
+    items: data
+})
+export const fetchAlltemsFailed = () => ({
+    type: actionTypes.FETCH_ALL_ITEMS_FAILDED,
 })
 
 
@@ -167,6 +250,26 @@ export const deleteAUser = (userId) => {
         }
     }
 }
+// dien chuan
+export const deleteAItem = (itemId) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await deteleItemService(itemId);
+            if (res && res.errCode === 0) {
+                toast.success("Delete the Item succeed!");
+                dispatch(deleteItemSuccess())
+                dispatch(fetchAllItemsStart());
+            } else {
+                toast.error("Delete the Item error!");
+                dispatch(deleteItemFailed());
+            }
+        } catch (e) {
+            toast.error("Delete the Item error!");
+            dispatch(deleteItemFailed());
+            console.log('saveItemFailed error', e)
+        }
+    }
+}
 
 export const deleteUserSuccess = () => ({
     type: actionTypes.DELETE_USER_SUCCESS
@@ -174,6 +277,14 @@ export const deleteUserSuccess = () => ({
 
 export const deleteUserFailed = () => ({
     type: actionTypes.DELETE_USER_FAILDED
+})
+// dien chuan
+export const deleteItemSuccess = () => ({
+    type: actionTypes.DELETE_ITEM_SUCCESS
+})
+
+export const deleteItemFailed = () => ({
+    type: actionTypes.DELETE_ITEM_FAILDED
 })
 
 export const editAUser = (data) => {
@@ -222,6 +333,30 @@ export const fetchTopDoctor = () => {
             console.log('FETCH_TOP_DOCTORS_FAILDED: ', e)
             dispatch({
                 type: actionTypes.FETCH_TOP_DOCTORS_FAILDED
+            })
+        }
+    }
+}
+
+//dien chuan 
+export const fetchItemsCayLan = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getItmesHomeService('');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ITEMS_CAYLAN_SUCCESS,
+                    dataItemsCayLan: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ITEMS_CAYLAN_FAILDED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_ITEMS_CAYLAN_FAILDED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_ITEMS_CAYLAN_FAILDED
             })
         }
     }

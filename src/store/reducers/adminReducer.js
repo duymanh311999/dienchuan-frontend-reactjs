@@ -11,6 +11,13 @@ const initialState = {
     allScheduleTime: [],
 
     allRequiredDoctorInfor: [],
+
+
+    // dien chuan 
+    isLoadingTypeof: false,
+    items: [],
+    typeof: [],
+    itemsCayLan: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -35,6 +42,28 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+           
+        // dien chuan
+
+        case actionTypes.FETCH_TYPEOF_START:
+            let copyStateTypeof = { ...state };
+            copyStateTypeof.isLoadingTypeof = true;
+            return {
+                ...copyStateTypeof
+            }
+
+        case actionTypes.FETCH_TYPEOF_SUCCESS:
+            state.typeof = action.data;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_TYPEOF_FAIDED:
+            state.typeof = [];
+            return {
+                ...state
+            }
+
 
         case actionTypes.FETCH_POSITION_SUCCESS:
             state.positions = action.data;
@@ -73,6 +102,20 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
+        // dien chuan
+
+        case actionTypes.FETCH_ALL_ITEMS_SUCCESS:
+            state.items = action.items;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALL_ITEMS_FAILDED:
+            state.items = [];
+            return {
+                ...state
+            }
+
         case actionTypes.FETCH_TOP_DOCTORS_SUCCESS:
             state.topDoctors = action.dataDoctors;
             return {
@@ -81,6 +124,19 @@ const adminReducer = (state = initialState, action) => {
 
         case actionTypes.FETCH_TOP_DOCTORS_FAILDED:
             state.topDoctors = [];
+            return {
+                ...state
+            }
+
+        //dien chuan
+        case actionTypes.FETCH_ITEMS_CAYLAN_SUCCESS:
+            state.itemsCayLan = action.dataItemsCayLan;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ITEMS_CAYLAN_FAILDED:
+            state.itemsCayLan = [];
             return {
                 ...state
             }

@@ -7,10 +7,20 @@ const getAllUsers = (inputId) => {
     //template string
     return axios.get(`/api/get-all-users?id=${inputId}`)
 }
+//dien chuan
+const getAllItems = (inputId) => {
+    //template string
+    return axios.get(`/api/get-all-item?id=${inputId}`)
+}
 
 const createNewUserService = (data) => {
     console.log('check data from service : ', data)
     return axios.post('/api/create-new-user', data)
+}
+//dien chuan
+const createNewItemService = (data) => {
+    console.log('check data from service : ', data)
+    return axios.post('/api/create-new-item', data)
 }
 
 const deteleUserService = (userId) => {
@@ -18,6 +28,14 @@ const deteleUserService = (userId) => {
     return axios.delete('/api/delete-user', {
         data: {
             id: userId
+        }
+    });
+}
+//dien chuan
+const deteleItemService = (itemId) => {
+    return axios.delete('/api/delete-item', {
+        data: {
+            id: itemId
         }
     });
 }
@@ -29,9 +47,18 @@ const editUserService = (inputData) => {
 const getAllCodeService = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`)
 }
+// dien chuan
+const getAllCodeServiceItems = (inputType) => {
+    return axios.get(`/api/allcode-item?type=${inputType}`)
+}
 
 const getTopDoctorHomeService = (limit) => {
     return axios.get(`/api/top-doctor-home?limit=${limit}`)
+}
+
+//dien chuan
+const getItmesHomeService = (limit) => {
+    return axios.get(`/api/get-items-caylan?limit=${limit}`)
 }
 
 const getAllDoctors = () => {
@@ -117,5 +144,7 @@ export {
     getAllSpecialty, getAllDetailSpecialtyById,
     createNewClinic,
     getAllClinic, getAllDetailClinicById,
-    getAllPatientForDoctor, postSendRemedy
+    getAllPatientForDoctor, postSendRemedy,
+    // dien chuan
+    createNewItemService,getAllItems,deteleItemService,getAllCodeServiceItems,getItmesHomeService
 }

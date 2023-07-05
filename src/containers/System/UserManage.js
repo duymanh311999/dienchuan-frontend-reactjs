@@ -68,6 +68,8 @@ class UserManage extends Component {
         }
     }
 
+    
+
     handleDeleteUser = async (user) => {
         try {
             let res = await deteleUserService(user.id);
