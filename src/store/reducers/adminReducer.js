@@ -18,6 +18,7 @@ const initialState = {
     items: [],
     typeof: [],
     itemsCayLan: [],
+    allItemsName: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -149,6 +150,19 @@ const adminReducer = (state = initialState, action) => {
 
         case actionTypes.FETCH_ALL_DOCTORS_FAILDED:
             state.allDoctors = [];
+            return {
+                ...state
+            }
+
+        //dien chuan
+        case actionTypes.FETCH_ALL_ITEMS_NAME_SUCCESS:
+            state.allItemsName = action.dataItems;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALL_ITEMS_NAME_FAILDED:
+            state.allItemsName = [];
             return {
                 ...state
             }

@@ -44,6 +44,11 @@ const editUserService = (inputData) => {
     return axios.put('/api/edit-user', inputData);
 }
 
+// dien chuan
+const editItemService = (inputData) => {
+    return axios.put('/api/edit-items', inputData);
+}
+
 const getAllCodeService = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`)
 }
@@ -65,8 +70,20 @@ const getAllDoctors = () => {
     return axios.get(`/api/get-all-doctors`)
 }
 
+//dien chuan
+
+const getAllItemsName = () => {
+    return axios.get(`/api/get-all-items-name`)
+}
+
 const saveDetailDoctorService = (data) => {
     return axios.post('/api/save-infor-doctors', data)
+}
+
+// dien chuan
+
+const saveDetailItemsService = (data) => {
+    return axios.post('/api/save-infor-items-name', data)
 }
 
 const getDetailInforDoctor = (inputId) => {
@@ -146,5 +163,6 @@ export {
     getAllClinic, getAllDetailClinicById,
     getAllPatientForDoctor, postSendRemedy,
     // dien chuan
-    createNewItemService,getAllItems,deteleItemService,getAllCodeServiceItems,getItmesHomeService
+    createNewItemService,getAllItems,deteleItemService,getAllCodeServiceItems,getItmesHomeService,getAllItemsName,saveDetailItemsService,
+    editItemService,
 }

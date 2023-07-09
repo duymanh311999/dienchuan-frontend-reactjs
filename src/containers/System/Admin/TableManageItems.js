@@ -40,15 +40,14 @@ class TableManageItems extends Component {
         }
     }
 
-    handleDeleteItem = (items) => {
-        this.props.deleteAItemRedux(items.id);
+    handleDeleteItem = (item) => {
+        this.props.deleteAItemRedux(item.id);
     }
-    // handleEditUser = (user) => {
-    //     this.props.handleEditUserFromParentKey(user)
-    // }
+    handleEditItem = (item) => {
+        this.props.handleEditItemFromParentKey(item)
+    }
     render() {
         let arrItems = this.state.itemsRedux;
-        console.log('check all items:', this.props.listItems)
         return (
             <React.Fragment>
                 <table id="TableManageUser">
@@ -74,7 +73,7 @@ class TableManageItems extends Component {
                                         <td>{item.descriptionHTML}</td>                                        
                                         <td>
                                             <button
-                                                // onClick={() => this.handleEditUser(item)}
+                                                onClick={() => this.handleEditItem(item)}
                                                 className="btn-edit" ><i className="fas fa-pencil-alt"></i></button>
                                             <button
                                                 onClick={() => this.handleDeleteItem(item)}

@@ -16,7 +16,6 @@ class AdminManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            description: '',
             descriptionHTML: '',
 
             previewImgURL: '',
@@ -29,7 +28,8 @@ class AdminManage extends Component {
             typeOf: '',
             avatar: '',
 
-            typeofArr: []
+            typeofArr: [],
+            id: '',
 
         }
     }
@@ -50,6 +50,7 @@ class AdminManage extends Component {
 
         if (prevProps.listItems !== this.props.listItems) {
             let arrTypeof = this.props.typeofRedux;
+           
 
             this.setState({
                 typeOf: arrTypeof && arrTypeof.length > 0 ? arrTypeof[0].keyMap : '',
@@ -60,7 +61,6 @@ class AdminManage extends Component {
                 avatar: '',
                 action: CRUD_ACTIONS.CREATE,
                 previewImgURL: '',
-                description: '',
                 descriptionHTML: '',
             })
         }
@@ -90,26 +90,40 @@ class AdminManage extends Component {
     handleSaveItems = () => {
         let isValid = this.checkValidateInput();
         if (isValid === false) return;
+        let { action } = this.state;
 
-        
+        if (action === CRUD_ACTIONS.CREATE) {
             this.props.createNewItem({
+                name: this.state.name,
+                quantity: this.state.quantity,
+                priceBeforeSale: this.state.priceBeforeSale,
+                priceAfterSale: this.state.priceAfterSale,
+                typeOf: this.state.typeOf,
+                avatar: this.state.avatar,
+                descriptionHTML: this.state.descriptionHTML,
+        })
+        }
+          
+            if (action === CRUD_ACTIONS.EDIT) {
+                //fire redux edit user
+                this.props.editAItemRedux({
+                    id: this.state.id,
                     name: this.state.name,
                     quantity: this.state.quantity,
                     priceBeforeSale: this.state.priceBeforeSale,
                     priceAfterSale: this.state.priceAfterSale,
                     typeOf: this.state.typeOf,
-                    image: this.state.avatar,
+                    avatar: this.state.avatar,
                     descriptionHTML: this.state.descriptionHTML,
-                    description: this.state.description,
-            })
-        
+                })
+            }
   
     }
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrCheck = ['name', 'descriptionHTML', 'typeOf',
-            'quantity', 'priceAfterSale', 'avatar']
+        let arrCheck = ['name', 'descriptionHTML', 
+            'quantity', 'priceAfterSale', 'typeOf' ]
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {
                 isValid = false;
@@ -129,7 +143,15 @@ class AdminManage extends Component {
         })
     }
 
-    handleEditUserFromParent = (item) => {
+    
+    handleEditorChange = ({ html, text }) => {
+        this.setState({
+            description: text,
+            descriptionHTML: html,
+        })
+    }
+
+    handleEditItemFromParent = (item) => {
         let imageBase64 = '';
         if (item.image) {
             imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
@@ -145,15 +167,8 @@ class AdminManage extends Component {
             typeOf: item.typeOf,
             avatar: '',
             previewImgURL: imageBase64,
-            
-        })
-    }
-
-    
-    handleEditorChange = ({ html, text }) => {
-        this.setState({
-            description: text,
-            descriptionHTML: html,
+            action: CRUD_ACTIONS.EDIT,
+            id: item.id
         })
     }
 
@@ -165,7 +180,6 @@ class AdminManage extends Component {
         let { name, priceBeforeSale, quantity, priceAfterSale,
             descriptionHTML, avatar, typeOf
         } = this.state;
-        console.log('description', this.state.quantity)
         return (
             <div className="user-redux-container">
                 <div className="title">
@@ -236,7 +250,7 @@ class AdminManage extends Component {
 
 
                             <div className="col-3">
-                                <label><FormattedMessage id="manage-user.image" /></label>
+                                <label>Tải ảnh</label>
                                 <div className="preview-img-container">
                                     <input id="previewImg" type="file" hidden
                                         onChange={(event) => this.handleOnchangeImage(event)}
@@ -252,16 +266,6 @@ class AdminManage extends Component {
 
                             </div>
                                   
-                            <div className="col-12">
-                                <label>descriptionHTML</label>
-                                {/* <MdEditor
-                                    style={{ height: '300px' }}
-                                    renderHTML={text => mdParser.render(text)}
-                                    onChange={this.handleEditorChange}
-                                    value={this.state.description}
-                                /> */}
-                            </div>
-
                             <div className="col-12 my-3">
                                 <button
                                     className={this.state.action === CRUD_ACTIONS.EDIT ? "btn  btn-warning" : "btn btn-primary"}
@@ -273,7 +277,7 @@ class AdminManage extends Component {
 
                             <div className="col-12 mb-5">
                                 <TableManageItems
-                                    handleEditUserFromParentKey={this.handleEditUserFromParent}
+                                    handleEditItemFromParentKey={this.handleEditItemFromParent}
                                     action={this.state.action}
                                 />
                             </div>
@@ -316,6 +320,7 @@ const mapDispatchToProps = dispatch => {
         
         fetchItemsRedux: () => dispatch(actions.fetchAllItemsStart()),
         getTypeOfStart: () => dispatch(actions.fetchTypeOfStart()),
+        editAItemRedux: (data) => dispatch(actions.editAItem(data))
 
 
         // processLogout: () => dispatch(actions.processLogout()),

@@ -4,7 +4,7 @@ import {
     deteleUserService, editUserService, getTopDoctorHomeService,
     getAllDoctors, saveDetailDoctorService,
     getAllSpecialty, getAllClinic, createNewItemService, getAllItems,
-    deteleItemService, getAllCodeServiceItems, getItmesHomeService
+    deteleItemService, getAllCodeServiceItems, getItmesHomeService, getAllItemsName,saveDetailItemsService, editItemService
 } from "../../services/userService";
 import { toast } from "react-toastify";
 // export const fetchGenderStart = () => ({
@@ -307,12 +307,43 @@ export const editAUser = (data) => {
     }
 }
 
+//dien chuan 
+export const editAItem = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await editItemService(data);
+            if (res && res.errCode === 0) {
+                toast.success("Update the item succeed!");
+                dispatch(editItemSuccess())
+                dispatch(fetchAllItemsStart());
+            } else {
+                toast.error("Update the item error!");
+                dispatch(editItemFailed());
+            }
+        } catch (e) {
+            toast.error("Update the item error!");
+            dispatch(editItemFailed());
+            console.log('Edit item Failed error', e)
+        }
+    }
+}
+
 export const editUserSuccess = () => ({
     type: actionTypes.EDIT_USER_SUCCESS
 })
 
 export const editUserFailed = () => ({
     type: actionTypes.EDIT_USER_FAILDED
+})
+
+//dien chuan
+
+export const editItemSuccess = () => ({
+    type: actionTypes.EDIT_ITEM_SUCCESS
+})
+
+export const editItemFailed = () => ({
+    type: actionTypes.EDIT_ITEM_FAILDED
 })
 
 export const fetchTopDoctor = () => {
@@ -385,6 +416,30 @@ export const fetchAllDoctors = () => {
     }
 }
 
+//dien chuan
+export const getAllItemName = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllItemsName();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_ITEMS_NAME_SUCCESS,
+                    dataItems: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_ITEMS_NAME_FAILDED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_ALL_ITEMS_NAME_FAILDED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_ALL_ITEMS_NAME_FAILDED
+            })
+        }
+    }
+}
+
 
 export const saveDetailDoctor = (data) => {
     return async (dispatch, getState) => {
@@ -408,6 +463,34 @@ export const saveDetailDoctor = (data) => {
             console.log('SAVE_DETAIL_DOCTOR_FAILDED: ', e)
             dispatch({
                 type: actionTypes.SAVE_DETAIL_DOCTOR_FAILDED
+            })
+        }
+    }
+}
+
+//dien chuan
+export const saveDetailItems = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveDetailItemsService(data);
+            if (res && res.errCode === 0) {
+                toast.success("Save Infor Detail items succeed!");
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_ITEMS_SUCCESS,
+                })
+            } else {
+                console.log('err res', res)
+                toast.error("Save Infor Detail items error!");
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_ITEMS_FAILDED
+                })
+            }
+        } catch (e) {
+            toast.error("Save Infor Detail items error!");
+
+            console.log('SAVE_DETAIL_ITEMS_FAILDED: ', e)
+            dispatch({
+                type: actionTypes.SAVE_DETAIL_ITEMS_FAILDED
             })
         }
     }
