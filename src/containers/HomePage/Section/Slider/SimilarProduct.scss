@@ -3,8 +3,14 @@
     border: 1px solid black;
 
     .bg-image{
+        // background-image: url('../../../../assets/13-dien-chan-bui-quoc-chau-dung-cu-qua-tang.jpg');
         margin-left: auto;
         margin-right: auto;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        object-fit: cover;
+        display: block;
         .shopping{
             border: 1px solid black;
             display: flex;

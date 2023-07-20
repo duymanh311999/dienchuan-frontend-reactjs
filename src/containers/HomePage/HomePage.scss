@@ -74,6 +74,9 @@
                       width        : 220px;
                       height       : 220px;
                   }
+                  &:hover{
+                    opacity: 0.7;
+                  }
 
                   &.section-handbook {
                       background-image: url('../../assets/handbook/handbook.jpg');
@@ -151,6 +154,9 @@
                 font-size: 18px;
                 font-weight: 500;
             }
+            &:hover{
+               color: rgb(198, 10, 10);
+              }
             .priceBeforeSale{
                 font-size: 16px;
                 font-weight: 500;

@@ -4,7 +4,9 @@ import {
     deteleUserService, editUserService, getTopDoctorHomeService,
     getAllDoctors, saveDetailDoctorService,
     getAllSpecialty, getAllClinic, createNewItemService, getAllItems,
-    deteleItemService, getAllCodeServiceItems, getItmesHomeService, getAllItemsName,saveDetailItemsService, editItemService
+    deteleItemService, getAllCodeServiceItems, getItmesHomeServiceCayLan, 
+    getItmesHomeServiceQueDo, getItmesHomeServiceThietBi, getItmesHomeServiceSach,
+    getAllItemsName,saveDetailItemsService, editItemService
 } from "../../services/userService";
 import { toast } from "react-toastify";
 // export const fetchGenderStart = () => ({
@@ -373,7 +375,7 @@ export const fetchTopDoctor = () => {
 export const fetchItemsCayLan = () => {
     return async (dispatch, getState) => {
         try {
-            let res = await getItmesHomeService('');
+            let res = await getItmesHomeServiceCayLan('');
             if (res && res.errCode === 0) {
                 dispatch({
                     type: actionTypes.FETCH_ITEMS_CAYLAN_SUCCESS,
@@ -392,6 +394,77 @@ export const fetchItemsCayLan = () => {
         }
     }
 }
+
+export const fetchItemsQueDo = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getItmesHomeServiceQueDo('');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ITEMS_QUEDO_SUCCESS,
+                    dataItemsQueDo: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ITEMS_QUEDO_FAILDED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_ITEMS_QUEDO_FAILDED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_ITEMS_QUEDO_FAILDED
+            })
+        }
+    }
+}
+
+
+export const fetchItemsThietBi = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getItmesHomeServiceThietBi('');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ITEMS_THIETBI_SUCCESS,
+                    dataItemsThietBi: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ITEMS_THIETBI_FAILDED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_ITEMS_THIETBI_FAILDED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_ITEMS_THIETBI_FAILDED
+            })
+        }
+    }
+}
+
+export const fetchItemsSach = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getItmesHomeServiceSach('');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ITEMS_SACH_SUCCESS,
+                    dataItemsSach: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ITEMS_SACH_FAILDED
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_ITEMS_SACH_FAILDED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_ITEMS_SACH_FAILDED
+            })
+        }
+    }
+}
+
 
 export const fetchAllDoctors = () => {
     return async (dispatch, getState) => {

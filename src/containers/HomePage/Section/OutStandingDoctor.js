@@ -4,12 +4,12 @@ import Slider from "react-slick";
 import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router';
 
+
 class OutStandingDoctor extends Component {
     constructor(props) {
         super(props)
         this.state = {
             itemsRedux: [],
-            menuApp: []
         }
     }
 
@@ -25,14 +25,14 @@ class OutStandingDoctor extends Component {
         this.props.fetchItemsCayLanRedux();
     }
 
-    handleViewDetailDoctor = (doctor) => {
+    handleViewDetailIem = (item) => {
         if (this.props.history) {
-            this.props.history.push(`/detail-doctor/${doctor.id}`)
+            this.props.history.push(`/detail-doctor/${item.id}`)
         }
+        window.location.reload(false)
     }
     render() {
         let itemsRedux = this.state.itemsRedux;
-        console.log("Hello world!", this.props.listItemsCayLan)
         // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors)
         return (
             <div className="section-share section-outstanding-doctor">
@@ -47,19 +47,6 @@ class OutStandingDoctor extends Component {
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
-                                        {/* <div className="section-customize specialty-child">
-                                           < div className="bg-image section-specialty">         
-                                                <div className='shopping'>
-                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
-                                            </div>
-                                        </div>
-                                            <div/>
-                                            <div className='content-name'>
-                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
-                                                <div className="price-name">2.700.000đ</div>
-                                                <div className="price-name-onsale">1.200.000đ</div>
-                                            </div>
-                                        </div> */}
                                         
                             {itemsRedux && itemsRedux.length > 0
                                 && itemsRedux.map((item, index) => {
@@ -68,7 +55,7 @@ class OutStandingDoctor extends Component {
                                         imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
                                     }
                                     return (
-                                        <div className="section-customize" key={index} onClick={() => this.handleViewDetailDoctor(item)}>
+                                        <div className="section-customize" key={index} onClick={() => this.handleViewDetailIem(item)}>
                                             <div className="customize-border">
                                                 <div className="outer-bg">
                                                     <div className="bg-image section-outstading-doctor"
@@ -77,8 +64,7 @@ class OutStandingDoctor extends Component {
                                                 </div>
                                                 <div className="item-name-price text-center">
                                                     <div className='name'>{item.name}</div>
-                                                    <div>     
-                                                                                                  
+                                                    <div>                                                                                                 
                                                         <div className={item.priceBeforeSale === '' ? 'priceBeforeSaleNone' : 'priceBeforeSale'}>{item.priceBeforeSale} đ</div>
                                                         <div className='priceAfterSale'>{item.priceAfterSale} đ</div>
                                                     </div>
@@ -99,9 +85,6 @@ class OutStandingDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language,
-        isLoggedIn: state.user.isLoggedIn,
-
         listItemsCayLan: state.admin.itemsCayLan
     };
 };

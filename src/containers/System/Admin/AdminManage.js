@@ -122,8 +122,7 @@ class AdminManage extends Component {
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrCheck = ['name', 'descriptionHTML', 
-            'quantity', 'priceAfterSale', 'typeOf' ]
+        let arrCheck = ['name','quantity', 'priceAfterSale', 'typeOf' ]
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {
                 isValid = false;

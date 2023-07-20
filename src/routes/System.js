@@ -8,7 +8,6 @@ import ManageDoctor from '../containers/System/Admin/ManageDoctor';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
 import AdminManage from '../containers/System/Admin/AdminManage';
-
 class System extends Component {
 
     render() {

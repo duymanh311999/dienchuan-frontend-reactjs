@@ -62,8 +62,20 @@ const getTopDoctorHomeService = (limit) => {
 }
 
 //dien chuan
-const getItmesHomeService = (limit) => {
+const getItmesHomeServiceCayLan = (limit) => {
     return axios.get(`/api/get-items-caylan?limit=${limit}`)
+}
+
+const getItmesHomeServiceQueDo = (limit) => {
+    return axios.get(`/api/get-items-quedo?limit=${limit}`)
+}
+
+const getItmesHomeServiceThietBi = (limit) => {
+    return axios.get(`/api/get-items-thietbi?limit=${limit}`)
+}
+
+const getItmesHomeServiceSach = (limit) => {
+    return axios.get(`/api/get-items-sach?limit=${limit}`)
 }
 
 const getAllDoctors = () => {
@@ -88,6 +100,11 @@ const saveDetailItemsService = (data) => {
 
 const getDetailInforDoctor = (inputId) => {
     return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`)
+}
+
+//dien chuan 
+const getDetailInforItems = (inputId) => {
+    return axios.get(`/api/get-detail-items-by-id?id=${inputId}`)
 }
 
 const saveBulkScheduleDoctor = (data) => {
@@ -163,6 +180,8 @@ export {
     getAllClinic, getAllDetailClinicById,
     getAllPatientForDoctor, postSendRemedy,
     // dien chuan
-    createNewItemService,getAllItems,deteleItemService,getAllCodeServiceItems,getItmesHomeService,getAllItemsName,saveDetailItemsService,
-    editItemService,
+    createNewItemService,getAllItems,deteleItemService,getAllCodeServiceItems,
+    getItmesHomeServiceCayLan,getItmesHomeServiceQueDo,getItmesHomeServiceThietBi,getItmesHomeServiceSach,
+    getAllItemsName,saveDetailItemsService,
+    editItemService, getDetailInforItems
 }

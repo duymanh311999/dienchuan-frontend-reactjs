@@ -24,7 +24,7 @@
                     border: 1px solid black;
                     height: 100%;
                     .child-image{
-                        background-image: url('../../../assets//13-dien-chan-bui-quoc-chau-dung-cu-qua-tang.jpg');
+                        // background-image: url('../../../assets//13-dien-chan-bui-quoc-chau-dung-cu-qua-tang.jpg');
                         max-width: 100%;
                         height: 400px;
                         background-position: center;
@@ -47,6 +47,9 @@
                                 color: #999;
                                 font-size: 15px;
                                 text-decoration: line-through;
+                            }
+                            .before-sale-none{
+                                display: none;
                             }
                             .after-sale{
                                 color: rgb(170, 8, 8);
@@ -93,33 +96,37 @@
             border: 1px solid black;
             height: 100%;
             padding: 0;
-            ol{
-                padding: 0;
-                margin: 0;
-                background-color: #e3f7eb;
-                list-style: none;
+            .content-right-child{
                 margin-bottom: 25px;
+                
                 h2{
-                    background-color: #06863b;
-                    padding: 10px 28px;
-                    color: white;
-                    font-size: 16px;
-                    font-weight: 500;
-                    margin: 0;
+                background-color: #06863b;
+                padding: 10px 28px;
+                color: white;
+                font-size: 16px;
+                font-weight: 500;
+                margin: 0;          
                 }
-                li{           
-                    padding: 10px 28px;
-                    color: black;
-                    font-size: 13px;
-                    font-weight: 500;
-                    border-bottom: 1px dotted #7dc79c;
-                    cursor: pointer;
-                        &:hover{
-                            color: rgb(170, 8, 8);
-                            font-weight: 600;
-                        }
+                ol{
+                    padding: 0;
+                    margin: 0;
+                    background-color: #e3f7eb;
+                    list-style: none;
+                    li{           
+                        padding: 10px 28px;
+                        color: black;
+                        font-size: 13px;
+                        font-weight: 500;
+                        border-bottom: 1px dotted #7dc79c;
+                        cursor: pointer;
+                            &:hover{
+                                color: rgb(170, 8, 8);
+                                font-weight: 600;
+                            }
+                    }
                 }
             }
+        
             ul{
                 padding: 0;
                 margin: 0;

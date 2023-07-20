@@ -17,7 +17,9 @@ class HomeHeader extends Component {
         if (this.props.history) {
             this.props.history.push(`/home`)
         }
+        window.location.reload(false)
     }
+
     render() {
         let language = this.props.language;
         return (
@@ -33,7 +35,7 @@ class HomeHeader extends Component {
                     </div>
                 </div>
                 <div className='home-middler-header-container row'>
-                    <div className='logo col-3'></div>
+                    <div className='logo col-3' onClick={() => this.returnToHome()}></div>
                     <div className='title col-6'>
                         <h2>HỘI VŨ SHOP</h2>
                         <h3>Diện Chẩn, Bách Chi chính hãng</h3>
@@ -49,7 +51,7 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="center-content">
                             <div className="child-content">                      
-                                <div className="subs-title">TRANG CHỦ</div>
+                                <div className="subs-title" onClick={() => this.returnToHome()}>TRANG CHỦ</div>
                             </div>
                             <div className="child-content">
                                 <div className="subs-title">GIỚI THIỆU</div>

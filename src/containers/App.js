@@ -17,6 +17,7 @@ import Doctor from '../routes/Doctor';
 import VerifyEmail from './Patient/VerifyEmail';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 import DetailClinic from './Patient/Clinic/DetailClinic';
+import ScrollToTop from '../components/ScrollToTop';
 
 class App extends Component {
 
@@ -41,10 +42,11 @@ class App extends Component {
     render() {
         return (
             <Fragment>
-                <Router history={history}>
+                <Router history={history}>     
+                <ScrollToTop />
                     <div className="main-container">
                         <div className="content-container">
-                            <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
+                            <CustomScrollbars style={{ height: '100vh', width: '100%' }}>                 
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />

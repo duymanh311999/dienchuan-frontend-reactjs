@@ -9,7 +9,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import './ManageDoctor.scss';
 import Select from 'react-select';
 import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
-// import { getAllItemsName } from "../../../services/userService";
+import { getDetailInforItems } from "../../../services/userService";
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -57,14 +57,31 @@ class ManageDoctor extends Component {
 
     handleChangeSelect = async (selectedOption) => {
       this.setState({ selectedOption })
-      console.log('selectedOption', selectedOption)
+      let res = await getDetailInforItems(selectedOption.value);
+      if (res && res.errCode === 0 && res.data && res.data.Markdown){
+        let markdown = res.data.Markdown;
+        this.setState({
+            contentHTML: markdown.contentHTML,
+            contentMarkdown: markdown.contentMarkdown,
+            hasOldData: true,
+        })
+      }else{
+        this.setState({
+            contentHTML: '',
+            contentMarkdown: '',
+            hasOldData: false,
+        })
+      }
+      
     };
 
     handleSaveContentMarkdown = () => {
+        let { hasOldData } = this.state;
         this.props.saveDetailItems({
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
-            itemId: this.state.selectedOption.value
+            itemId: this.state.selectedOption.value,
+            action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
         })
     }
 
@@ -78,8 +95,6 @@ class ManageDoctor extends Component {
 
     render() {
         let { hasOldData, listItemsName } = this.state;
-       
-        console.log('props:', this.state)
         return (
             <div className="manage-doctor-container">
                 <div className="manage-doctor-title">
@@ -87,7 +102,7 @@ class ManageDoctor extends Component {
                 </div>
                 <div className="more-infor">
                     <div className="content-left form-group">
-                        <label> <FormattedMessage id="admin.manage-doctor.select-doctor" /></label>
+                        <label>Chọn sản phẩm</label>
                         <Select
                             value={this.state.selectedOption}
                             onChange={this.handleChangeSelect}
@@ -111,9 +126,9 @@ class ManageDoctor extends Component {
                     onClick={() => this.handleSaveContentMarkdown()}
                     className={hasOldData === true ? "save-content-doctor" : "create-content-doctor"}>
                     {hasOldData === true ?
-                        <span><FormattedMessage id="admin.manage-doctor.save" /></span>
+                        <span>Lưu thông tin</span>
                         :
-                        <span><FormattedMessage id="admin.manage-doctor.add" /></span>
+                        <span>Tạo thông tin</span>
                     }
                 </button>
             </div>

@@ -1,74 +1,76 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './MedicalFacility.scss';
 import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick";
 import { getAllClinic } from '../../../services/userService';
 import { withRouter } from 'react-router';
+import * as actions from '../../../store/actions';
 
 class MedicalFacility extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            dataClinics: []
+            itemsRedux: [],
         }
     }
 
-    async componentDidMount() {
-        let res = await getAllClinic();
-        if (res && res.errCode === 0) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.listItemsQueDo !== this.props.listItemsQueDo) {
             this.setState({
-                dataClinics: res.data ? res.data : []
+                itemsRedux: this.props.listItemsQueDo
             })
         }
     }
 
-    handleViewDetailClinic = (clinic) => {
+    async componentDidMount() {
+        this.props.fetchItemsQueDoRedux();
+    }
+
+    handleViewDetailIem = (item) => {
         if (this.props.history) {
-            this.props.history.push(`/detail-clinic/${clinic.id}`)
+            this.props.history.push(`/detail-doctor/${item.id}`)
         }
+        window.location.reload(false)
     }
 
     render() {
-        let { dataClinics } = this.state;
+        let itemsRedux = this.state.itemsRedux;
         return (
-            <div className="section-share section-medical-facility">
+            <div className="section-share section-outstanding-doctor">
                 <div className="section-container">
                     <div className="section-header">
-                        <span className="title-section">Cơ sở y tế nổi bật</span>
+                        <span className="title-section">Que dò</span>
                         <button className="btn-section">xem thêm</button>
                     </div>
                     <div className="section-body">
                         <Slider {...this.props.settings}>
-                        <div className="section-customize specialty-child">
-                                           < div className="bg-image section-specialty">         
-                                                <div className='shopping'>
-                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
-                                            </div>
-                                        </div>
-                                            <div/>
-                                            <div className='content-name'>
-                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
-                                                <div className="price-name">2.700.000đ</div>
-                                                <div className="price-name-onsale">1.200.000đ</div>
-                                            </div>
-                                        </div>
+                     
                                         
-                            {dataClinics && dataClinics.length > 0 &&
-                                dataClinics.map((item, index) => {
+                            {itemsRedux && itemsRedux.length > 0 &&
+                                itemsRedux.map((item, index) => {
+                                    let imageBase64 = '';
+                                    if (item.image) {
+                                        imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
+                                    }
                                     return (
-                                        <div className="section-customize clinic-child"
-                                            key={index}
-                                            onClick={() => this.handleViewDetailClinic(item)}
-
-                                        >
-                                            <div className="bg-image section-medical-facility "
-
-                                                style={{ backgroundImage: `url(${item.image})` }}
-                                            />
-                                            <div className="clinic-name">{item.name}</div>
+                                        <div className="section-customize" key={index} onClick={() => this.handleViewDetailIem(item)}>
+                                        < div className="customize-border">         
+                                            <div className="outer-bg">
+                                                <div className="bg-image section-outstading-doctor"
+                                                    style={{ backgroundImage: `url(${imageBase64})` }}
+                                                />
+                                            </div>
                                         </div>
+                                         <div/>
+                                         <div className="item-name-price text-center">
+                                                <div className='name'>{item.name}</div>
+                                                <div>                                                                                        
+                                                    <div className={item.priceBeforeSale === '' ? 'priceBeforeSaleNone' : 'priceBeforeSale'}>{item.priceBeforeSale} đ</div>
+                                                    <div className='priceAfterSale'>{item.priceAfterSale} đ</div>
+                                                </div>
+                                            </div>
+                                     </div>
                                     )
                                 })
                             }
@@ -84,12 +86,13 @@ class MedicalFacility extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn
+        listItemsQueDo: state.admin.itemsQueDo
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchItemsQueDoRedux: () => dispatch(actions.fetchItemsQueDo()),
     };
 };
 

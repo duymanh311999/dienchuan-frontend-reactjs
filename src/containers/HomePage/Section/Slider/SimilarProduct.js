@@ -5,35 +5,47 @@ import { FormattedMessage } from 'react-intl';
 import Slider from "react-slick";
 import { getAllSpecialty } from '../../../../services/userService';
 import { withRouter } from 'react-router';
+import { getDetailInforItems } from '../../../../services/userService';
+
 
 class SimilarProduct extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            dataSpecialty: []
+            detailItem: [],
         }
     }
-
+   
+   
 
     async componentDidMount() {
-        let res = await getAllSpecialty();
-        if (res && res.errCode === 0) {
-            this.setState({
-                dataSpecialty: res.data ? res.data : []
-            })
+        if (this.props.match && this.props.match.params && this.props.match.params.id) {
+            let id = this.props.match.params.id;
+
+            let res = await getDetailInforItems(id);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    detailItem: res.data,
+                })
+            }
         }
     }
 
-    handleViewDetailSpecialty = (item) => {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+    }
+
+    handleViewDetailItem = (item) => {
         if (this.props.history) {
-            this.props.history.push(`/detail-specialty/${item.id}`)
+            this.props.history.push(`/detail-doctor/${item.id}`)    
         }
+        window.location.reload(false)
     }
+    
     render() {
-        let { dataSpecialty } = this.state;
-
-        return (
+        let {detailItem} = this.state
+        let itemsRedux = this.props.itemsRedux;
+        console.log('detailItem', detailItem)
+        return (    
             <div className="section-share section-specialty">
                 <div className="section-container">
                     <div className="section-header">
@@ -45,88 +57,31 @@ class SimilarProduct extends Component {
                         </button>
                     </div>
                     <div className="section-body">
-                        <Slider {...this.props.settings}>
-                                        <div className="section-customize specialty-child">
-                                           < div className="bg-image section-specialty">         
-                                                <div className='shopping'>
-                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
-                                            </div>
-                                        </div>
-                                            <div/>
-                                            <div className='content-name'>
-                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
-                                                <div className="price-name">2.700.000đ</div>
-                                                <div className="price-name-onsale">1.200.000đ</div>
-                                            </div>
-                                        </div>
-                                        <div className="section-customize specialty-child">
-                                           < div className="bg-image section-specialty">         
-                                                <div className='shopping'>
-                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
-                                            </div>
-                                        </div>
-                                            <div/>
-                                            <div className='content-name'>
-                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
-                                                <div className="price-name">2.700.000đ</div>
-                                                <div className="price-name-onsale">1.200.000đ</div>
-                                            </div>
-                                        </div>
-                                        <div className="section-customize specialty-child">
-                                           < div className="bg-image section-specialty">         
-                                                <div className='shopping'>
-                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
-                                            </div>
-                                        </div>
-                                            <div/>
-                                            <div className='content-name'>
-                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
-                                                <div className="price-name">2.700.000đ</div>
-                                                <div className="price-name-onsale">1.200.000đ</div>
-                                            </div>
-                                        </div>
-                                        <div className="section-customize specialty-child">
-                                           < div className="bg-image section-specialty">         
-                                                <div className='shopping'>
-                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
-                                            </div>
-                                        </div>
-                                            <div/>
-                                            <div className='content-name'>
-                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
-                                                <div className="price-name">2.700.000đ</div>
-                                                <div className="price-name-onsale">1.200.000đ</div>
-                                            </div>
-                                        </div>
-                                        <div className="section-customize specialty-child">
-                                           < div className="bg-image section-specialty">         
-                                                <div className='shopping'>
-                                                <i className="fa-sharp fa-solid fa-cart-shopping"></i>
-                                            </div>
-                                        </div>
-                                            <div/>
-                                            <div className='content-name'>
-                                                <div className="item-name">Bộ điện chuẩn quà tặng</div>
-                                                <div className="price-name">2.700.000đ</div>
-                                                <div className="price-name-onsale">1.200.000đ</div>
-                                            </div>
-                                        </div>
-                                        
-                                       
-                            {dataSpecialty && dataSpecialty.length > 0 &&
-                                dataSpecialty.map((item, index) => {
+                        <Slider {...this.props.settings}>                              
+                            {itemsRedux && itemsRedux.length > 0 &&
+                                itemsRedux.map((item, index) => {
+                                    let imageBase64 = '';
+                                    if (item.image) {
+                                        imageBase64 = Buffer.from(item.image, 'base64').toString('binary');
+                                    }
                                     return (
-                                        <div
-                                            className="section-customize specialty-child"
-                                            key={index}
-                                            onClick={() => this.handleViewDetailSpecialty(item)}
+                                        <div 
+                                            key={index} 
+                                            className="section-customize specialty-child" 
+                                            onClick={() => this.handleViewDetailItem(item)}                               
                                         >
-                                            <div
-                                                className="bg-image section-specialty"
-                                                style={{ backgroundImage: `url(${item.image})` }}
-                                            />
-                                            <div className="specialty-name">{item.name}</div>
-                                        </div>
+                                            <div className="bg-image section-specialty" 
+                                                style={{ backgroundImage: `url(${imageBase64})` }}>      
+                                                <div className='shopping'>
+                                                    <i className="fa-sharp fa-solid fa-cart-shopping"></i>
+                                                </div>
+                                            </div>                                        
+                                            <div className='content-name'>
+                                                <div className="item-name">{item.name}</div>
+                                                <div className="price-name">{item.priceBeforeSale} đ</div>
+                                                <div className="price-name-onsale">{item.priceAfterSale} đ</div>
+                                            </div>
+                                      </div>
                                     )
                                 })
                             }
@@ -141,8 +96,6 @@ class SimilarProduct extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn,
-        language: state.app.language,
     };
 };
 

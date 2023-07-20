@@ -18,6 +18,9 @@ const initialState = {
     items: [],
     typeof: [],
     itemsCayLan: [],
+    itemsQueDo: [],
+    itemsThietBi: [],
+    itemsSach: [],
     allItemsName: [],
 }
 
@@ -141,6 +144,42 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+        
+            case actionTypes.FETCH_ITEMS_QUEDO_SUCCESS:
+                state.itemsQueDo = action.dataItemsQueDo;
+                return {
+                    ...state
+                }
+    
+            case actionTypes.FETCH_ITEMS_QUEDO_FAILDED:
+                state.itemsQueDo = [];
+                return {
+                    ...state
+                }
+
+                case actionTypes.FETCH_ITEMS_THIETBI_SUCCESS:
+                    state.itemsThietBi = action.dataItemsThietBi;
+                    return {
+                        ...state
+                    }
+        
+                case actionTypes.FETCH_ITEMS_THIETBI_FAILDED:
+                    state.itemsThietBi = [];
+                    return {
+                        ...state
+                    }
+                
+                    case actionTypes.FETCH_ITEMS_SACH_SUCCESS:
+                        state.itemsSach = action.dataItemsSach;
+                        return {
+                            ...state
+                        }
+            
+                    case actionTypes.FETCH_ITEMS_SACH_FAILDED:
+                        state.itemsSach = [];
+                        return {
+                            ...state
+                        }
 
         case actionTypes.FETCH_ALL_DOCTORS_SUCCESS:
             state.allDoctors = action.dataDr;
