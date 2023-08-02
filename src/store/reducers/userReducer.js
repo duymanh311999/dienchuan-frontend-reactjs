@@ -1,8 +1,10 @@
 import actionTypes from '../actions/actionTypes';
+import axios from 'axios';
+
 
 const initialState = {
     isLoggedIn: false,
-    userInfo: null
+    userInfo: null,
 }
 
 const appReducer = (state = initialState, action) => {

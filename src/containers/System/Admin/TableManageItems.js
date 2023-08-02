@@ -48,6 +48,7 @@ class TableManageItems extends Component {
     }
     render() {
         let arrItems = this.state.itemsRedux;
+        console.log('arrItems',arrItems)
         return (
             <React.Fragment>
                 <table id="TableManageUser">

@@ -23,7 +23,6 @@ class HomePage extends Component {
             slidesToScroll: 1,  
             touchMove: false,
         };
-
         return (
             <div>
                 <HomeHeader isShowBanner={true} />

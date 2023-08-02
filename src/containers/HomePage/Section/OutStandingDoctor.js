@@ -5,6 +5,8 @@ import * as actions from '../../../store/actions';
 import { withRouter } from 'react-router';
 
 
+
+
 class OutStandingDoctor extends Component {
     constructor(props) {
         super(props)
@@ -19,29 +21,31 @@ class OutStandingDoctor extends Component {
                 itemsRedux: this.props.listItemsCayLan
             })
         }
+      
     }
 
     componentDidMount() {
         this.props.fetchItemsCayLanRedux();
-    }
+    }  
 
     handleViewDetailIem = (item) => {
         if (this.props.history) {
             this.props.history.push(`/detail-doctor/${item.id}`)
         }
-        window.location.reload(false)
     }
     render() {
         let itemsRedux = this.state.itemsRedux;
-        // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors)
+
+        console.log('props',this.props)
+
         return (
             <div className="section-share section-outstanding-doctor">
                 <div className="section-container">
                     <div className="section-header">
                         <span className="title-section">
-                             Máy Massage Spa phụ trợ
+                            Cây lăn
                         </span>
-                        <button className="btn-section">
+                        <button className="btn-section" >
                             Xem thêm
                         </button>
                     </div>
@@ -85,14 +89,15 @@ class OutStandingDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
-        listItemsCayLan: state.admin.itemsCayLan
+        listItemsCayLan: state.admin.itemsCayLan,
+        listItems: state.admin.items,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchItemsCayLanRedux: () => dispatch(actions.fetchItemsCayLan()),
-
+        fetchItemsRedux: () => dispatch(actions.fetchAllItemsStart()),
     };
 };
 

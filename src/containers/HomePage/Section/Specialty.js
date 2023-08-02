@@ -10,7 +10,6 @@ import * as actions from '../../../store/actions';
 class Specialty extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             itemsRedux: [],
         }
@@ -32,9 +31,9 @@ class Specialty extends Component {
     handleViewDetailIem = (item) => {
         if (this.props.history) {
             this.props.history.push(`/detail-doctor/${item.id}`)
-        }
-        window.location.reload(false)
+        }       
     }
+
     render() {
         let itemsRedux = this.state.itemsRedux;
         return (

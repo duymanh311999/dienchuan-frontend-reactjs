@@ -42,9 +42,7 @@ class SimilarProduct extends Component {
     }
     
     render() {
-        let {detailItem} = this.state
         let itemsRedux = this.props.itemsRedux;
-        console.log('detailItem', detailItem)
         return (    
             <div className="section-share section-specialty">
                 <div className="section-container">

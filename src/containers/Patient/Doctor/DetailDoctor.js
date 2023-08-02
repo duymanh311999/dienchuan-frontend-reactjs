@@ -18,12 +18,12 @@ class DetailDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            detailDoctor: {},
-            currentItemId: -1,
+            currentItemId: [],
             itemsReduxSach: [],
             itemsReduxQueDo: [],
             itemsReduxCayLan: [],
             itemsReduxThietBi: [],
+            itemsRedux: [],
         }
     }
 
@@ -48,7 +48,6 @@ class DetailDoctor extends Component {
         }
     }
 
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.listItemsSach !== this.props.listItemsSach) {
             this.setState({
@@ -72,15 +71,22 @@ class DetailDoctor extends Component {
         }
     }
    
+    
+    GoToCart = (item) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-clinic`)   
+        }   
+    }
 
     render() {
         let itemsReduxSach = this.state.itemsReduxSach;
         let itemsReduxQueDo = this.state.itemsReduxQueDo;
         let itemsReduxCayLan = this.state.itemsReduxCayLan;
         let itemsReduxThietBi = this.state.itemsReduxThietBi;
+        let detailItems = this.state.detailItems;
         let { detailItem } = this.state;
 
-        let handleViewDetailItems = this.props.handleViewDetailItems
+        console.log('props',this.props)
 
         let currentURL = +process.env.REACT_APP_IS_LOCALHOST === 1 ?
             "https://eric-restaurant-bot-tv.herokuapp.com/" : window.location.href;
@@ -93,7 +99,7 @@ class DetailDoctor extends Component {
                 slidesToScroll: 1,
             };
 
-            let itemsRedux = [];
+            let itemsRedux = this.state
         
             if(detailItem && detailItem.typeOf === 'Sách'){
                 itemsRedux =  this.state.itemsReduxSach
@@ -107,6 +113,7 @@ class DetailDoctor extends Component {
             if(detailItem && detailItem.typeOf === 'Thiết bị'){
                 itemsRedux =  this.state.itemsReduxThietBi
             }
+
         return (
             <>
                 <HomeHeader
@@ -151,7 +158,7 @@ class DetailDoctor extends Component {
                                                 <input className="form-control node col-3" type="number"
                                                     // value="1"
                                                 />
-                                                <button className='btn-buying'>Đặt mua</button>
+                                                <button className='btn-buying' onClick={() => this.GoToCart(detailItem)}>Đặt mua</button>
                                             </div>
                                             <div className='socal-media'>
                                                 <i className="fa-brands fa-square-facebook"></i>
@@ -260,7 +267,7 @@ const mapStateToProps = state => {
         listItemsSach: state.admin.itemsSach,
         listItemsQueDo: state.admin.itemsQueDo,
         listItemsCayLan: state.admin.itemsCayLan,
-        listItemsThietBi: state.admin.itemsThietBi
+        listItemsThietBi: state.admin.itemsThietBi,
     };
 };
 
@@ -269,7 +276,7 @@ const mapDispatchToProps = dispatch => {
         fetchItemsSachredux: () => dispatch(actions.fetchItemsSach()),
         fetchItemsQueDoRedux: () => dispatch(actions.fetchItemsQueDo()),
         fetchItemsCayLanRedux: () => dispatch(actions.fetchItemsCayLan()),
-        fetchItemsThietBiRedux: () => dispatch(actions.fetchItemsThietBi())
+        fetchItemsThietBiRedux: () => dispatch(actions.fetchItemsThietBi()),
     };
 };
 

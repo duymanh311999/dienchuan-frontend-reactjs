@@ -18,33 +18,16 @@ import VerifyEmail from './Patient/VerifyEmail';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 import DetailClinic from './Patient/Clinic/DetailClinic';
 import ScrollToTop from '../components/ScrollToTop';
-
 class App extends Component {
-
-    handlePersistorState = () => {
-        const { persistor } = this.props;
-        let { bootstrapped } = persistor.getState();
-        if (bootstrapped) {
-            if (this.props.onBeforeLift) {
-                Promise.resolve(this.props.onBeforeLift())
-                    .then(() => this.setState({ bootstrapped: true }))
-                    .catch(() => this.setState({ bootstrapped: true }));
-            } else {
-                this.setState({ bootstrapped: true });
-            }
-        }
-    };
-
     componentDidMount() {
-        this.handlePersistorState();
     }
 
     render() {
         return (
-            <Fragment>
-                <Router history={history}>     
-                <ScrollToTop />
-                    <div className="main-container">
+            <Fragment >
+                <Router history={history}>   
+                <ScrollToTop />  
+                
                         <div className="content-container">
                             <CustomScrollbars style={{ height: '100vh', width: '100%' }}>                 
                                 <Switch>
@@ -83,7 +66,7 @@ class App extends Component {
                             draggable
                             pauseOnHover
                         />
-                    </div>
+                 
                 </Router>
             </Fragment>
         )

@@ -9,19 +9,20 @@ import { changeLanguageApp } from "../../store/actions"
 
 class HomeHeader extends Component {
 
-    changeLanguage = (language) => {
-        this.props.changeLanguageAppRedux(language)
-    }
-
     returnToHome = () => {
         if (this.props.history) {
             this.props.history.push(`/home`)
-        }
-        window.location.reload(false)
+        }    
+    }
+
+    GoToCart = () => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-clinic`)
+        }    
     }
 
     render() {
-        let language = this.props.language;
+    
         return (
             <React.Fragment>
                 <div className="home-top-header-container">
@@ -30,7 +31,7 @@ class HomeHeader extends Component {
                         <i className="fa-solid fa-envelope"></i>
                         <div className="subs-title">Diện Chẩn Bùi Quốc Châu</div>
                     </div>
-                    <div className='shopping'>
+                    <div className='shopping' onClick={() => this.GoToCart()}>
                         <i className="fa-sharp fa-solid fa-cart-shopping"></i>  Giỏ hàng (0)
                     </div>
                 </div>
@@ -94,15 +95,11 @@ class HomeHeader extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn,
-        userInfo: state.user.userInfo,
-        language: state.app.language,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language))
     };
 };
 

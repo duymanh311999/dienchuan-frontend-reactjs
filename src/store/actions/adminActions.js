@@ -6,7 +6,7 @@ import {
     getAllSpecialty, getAllClinic, createNewItemService, getAllItems,
     deteleItemService, getAllCodeServiceItems, getItmesHomeServiceCayLan, 
     getItmesHomeServiceQueDo, getItmesHomeServiceThietBi, getItmesHomeServiceSach,
-    getAllItemsName,saveDetailItemsService, editItemService
+    getAllItemsName,saveDetailItemsService, editItemService, getDetailInforItems
 } from "../../services/userService";
 import { toast } from "react-toastify";
 // export const fetchGenderStart = () => ({
@@ -638,3 +638,6 @@ export const fetchRequiredDoctorInforSuccess = (allRequiredData) => ({
 export const fetchRequiredDoctorInforFailed = () => ({
     type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_FAIDED
 })
+
+
+

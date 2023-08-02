@@ -31,13 +31,13 @@ class MedicalFacility extends Component {
         if (this.props.history) {
             this.props.history.push(`/detail-doctor/${item.id}`)
         }
-        window.location.reload(false)
+     
     }
 
     render() {
         let itemsRedux = this.state.itemsRedux;
         return (
-            <div className="section-share section-outstanding-doctor">
+            <div className="section-share section-outstanding-doctor" >
                 <div className="section-container">
                     <div className="section-header">
                         <span className="title-section">Que dò</span>

@@ -7,7 +7,7 @@ import { withRouter } from 'react-router';
 
 class HandBook extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             arrItems: [],
         }
@@ -22,15 +22,13 @@ class HandBook extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchItemsSachredux();
-        
+        this.props.fetchItemsSachredux(); 
     }
 
     handleViewDetailIem = (item) => {
         if (this.props.history) {
             this.props.history.push(`/detail-doctor/${item.id}`)
         }
-        window.location.reload(false)
     }
     render() {
         let arrItems = this.state.arrItems;
