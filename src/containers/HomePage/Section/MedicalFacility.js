@@ -67,7 +67,7 @@ class MedicalFacility extends Component {
                                                 <div className='name'>{item.name}</div>
                                                 <div>                                                                                        
                                                     <div className={item.priceBeforeSale === '' ? 'priceBeforeSaleNone' : 'priceBeforeSale'}>{item.priceBeforeSale} đ</div>
-                                                    <div className='priceAfterSale'>{item.priceAfterSale} đ</div>
+                                                    <div className='price'>{item.price} đ</div>
                                                 </div>
                                             </div>
                                      </div>

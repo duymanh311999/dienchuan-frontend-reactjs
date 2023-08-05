@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import './HomeHeader.scss';
-import logo from '../../assets/logo.svg';
-import { FormattedMessage } from 'react-intl';
-import { LANGUAGES } from "../../utils";
 import { withRouter } from 'react-router';
-import { changeLanguageApp } from "../../store/actions"
+import { useCart } from 'react-use-cart';
 
-class HomeHeader extends Component {
+const HomeHeader = (props) => {
+    const {
+        isEmpty,
+        totalItems,
+    } = useCart()
 
-    returnToHome = () => {
-        if (this.props.history) {
-            this.props.history.push(`/home`)
+   const returnToHome = () => {
+        if (props.history) {
+            props.history.push(`/home`)
         }    
     }
 
-    GoToCart = () => {
-        if (this.props.history) {
-            this.props.history.push(`/detail-clinic`)
+    const GoToCart = () => {
+        if (props.history) {
+            props.history.push(`/detail-clinic`)
         }    
     }
 
-    render() {
-    
         return (
             <React.Fragment>
                 <div className="home-top-header-container">
@@ -31,12 +29,12 @@ class HomeHeader extends Component {
                         <i className="fa-solid fa-envelope"></i>
                         <div className="subs-title">Diện Chẩn Bùi Quốc Châu</div>
                     </div>
-                    <div className='shopping' onClick={() => this.GoToCart()}>
-                        <i className="fa-sharp fa-solid fa-cart-shopping"></i>  Giỏ hàng (0)
+                    <div className='shopping' onClick={() => GoToCart()}>
+                        <i className="fa-sharp fa-solid fa-cart-shopping"></i>  Giỏ hàng ({totalItems})
                     </div>
                 </div>
                 <div className='home-middler-header-container row'>
-                    <div className='logo col-3' onClick={() => this.returnToHome()}></div>
+                    <div className='logo col-3' onClick={() => returnToHome()}></div>
                     <div className='title col-6'>
                         <h2>HỘI VŨ SHOP</h2>
                         <h3>Diện Chẩn, Bách Chi chính hãng</h3>
@@ -52,7 +50,7 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="center-content">
                             <div className="child-content">                      
-                                <div className="subs-title" onClick={() => this.returnToHome()}>TRANG CHỦ</div>
+                                <div className="subs-title" onClick={() => returnToHome()}>TRANG CHỦ</div>
                             </div>
                             <div className="child-content">
                                 <div className="subs-title">GIỚI THIỆU</div>
@@ -91,16 +89,5 @@ class HomeHeader extends Component {
         );
     }
 
-}
 
-const mapStateToProps = state => {
-    return {
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));
+export default withRouter((HomeHeader));

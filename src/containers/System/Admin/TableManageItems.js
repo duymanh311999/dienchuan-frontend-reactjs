@@ -70,7 +70,7 @@ class TableManageItems extends Component {
                                         <td>{item.typeOf}</td>
                                         <td>{item.quantity}</td>
                                         <td>{item.priceBeforeSale}</td>
-                                        <td>{item.priceAfterSale}</td>   
+                                        <td>{item.price}</td>   
                                         <td>{item.descriptionHTML}</td>                                        
                                         <td>
                                             <button

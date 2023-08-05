@@ -24,7 +24,7 @@ class AdminManage extends Component {
             name: '',
             priceBeforeSale: '',
             quantity: '',
-            priceAfterSale: '',
+            price: '',
             typeOf: '',
             avatar: '',
 
@@ -57,7 +57,7 @@ class AdminManage extends Component {
                 name: '',
                 priceBeforeSale: '',
                 quantity: '',
-                priceAfterSale: '',
+                price: '',
                 avatar: '',
                 action: CRUD_ACTIONS.CREATE,
                 previewImgURL: '',
@@ -97,7 +97,7 @@ class AdminManage extends Component {
                 name: this.state.name,
                 quantity: this.state.quantity,
                 priceBeforeSale: this.state.priceBeforeSale,
-                priceAfterSale: this.state.priceAfterSale,
+                price: this.state.price,
                 typeOf: this.state.typeOf,
                 avatar: this.state.avatar,
                 descriptionHTML: this.state.descriptionHTML,
@@ -111,7 +111,7 @@ class AdminManage extends Component {
                     name: this.state.name,
                     quantity: this.state.quantity,
                     priceBeforeSale: this.state.priceBeforeSale,
-                    priceAfterSale: this.state.priceAfterSale,
+                    price: this.state.price,
                     typeOf: this.state.typeOf,
                     avatar: this.state.avatar,
                     descriptionHTML: this.state.descriptionHTML,
@@ -122,7 +122,7 @@ class AdminManage extends Component {
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrCheck = ['name','quantity', 'priceAfterSale', 'typeOf' ]
+        let arrCheck = ['name','quantity', 'price', 'typeOf' ]
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {
                 isValid = false;
@@ -161,7 +161,7 @@ class AdminManage extends Component {
             name: item.name,
             priceBeforeSale: item.priceBeforeSale,
             quantity: item.quantity,
-            priceAfterSale: item.priceAfterSale,
+            price: item.price,
             descriptionHTML: item.descriptionHTML,
             typeOf: item.typeOf,
             avatar: '',
@@ -176,7 +176,7 @@ class AdminManage extends Component {
         let typeofs = this.state.typeofArr;
         let isGetTypeof = this.props.isLoadingTypeof;
 
-        let { name, priceBeforeSale, quantity, priceAfterSale,
+        let { name, priceBeforeSale, quantity, price,
             descriptionHTML, avatar, typeOf
         } = this.state;
         return (
@@ -207,10 +207,10 @@ class AdminManage extends Component {
                                 />
                             </div>
                             <div className="col-3">
-                                <label>priceAfterSale</label>
+                                <label>price</label>
                                 <input className="form-control" type="text"
-                                    value={priceAfterSale}
-                                    onChange={(event) => { this.onChangeInput(event, 'priceAfterSale') }}
+                                    value={price}
+                                    onChange={(event) => { this.onChangeInput(event, 'price') }}
                                 />
                             </div>
                             <div className="col-3">

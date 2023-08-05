@@ -77,7 +77,7 @@ class SimilarProduct extends Component {
                                             <div className='content-name'>
                                                 <div className="item-name">{item.name}</div>
                                                 <div className="price-name">{item.priceBeforeSale} đ</div>
-                                                <div className="price-name-onsale">{item.priceAfterSale} đ</div>
+                                                <div className="price-name-onsale">{item.price} đ</div>
                                             </div>
                                       </div>
                                     )

@@ -8,14 +8,16 @@ import IntlProviderWrapper from "./hoc/IntlProviderWrapper";
 
 import { Provider } from 'react-redux';
 import reduxStore, { persistor } from './redux';
-
+import { CartProvider } from "react-use-cart";
 
 const renderApp = () => {
     ReactDOM.render(
         <StrictMode>
             <Provider store={reduxStore} >
-                <IntlProviderWrapper>         
-                    <App persistor={persistor}/>            
+                <IntlProviderWrapper>     
+                     <CartProvider>
+                        <App persistor={persistor}/> 
+                     </CartProvider>                      
                 </IntlProviderWrapper>
             </Provider>
         </StrictMode>,
